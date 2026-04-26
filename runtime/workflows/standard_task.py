@@ -60,9 +60,10 @@ class StandardTaskWorkflow:
                 if execution_result.status == "completed"
                 else execution_result.status
             )
+            session_status = "failed" if workflow_status == "failed" else "completed"
             self.memory_service.end_session(
                 session_id,
-                status=workflow_status,
+                status=session_status,
                 summary=reflection.summary,
             )
 
@@ -79,6 +80,7 @@ class StandardTaskWorkflow:
                     "project_name": project_name,
                     "session_id": session_id,
                     "executor_name": execution_result.executor_name,
+                    "execution_metadata": execution_result.metadata,
                     "memory_prefetch_counts": self._count_prefetch(prefetch),
                 },
             )

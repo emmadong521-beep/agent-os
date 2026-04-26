@@ -44,6 +44,16 @@ execute(task: Task, context: ExecutionContext) -> ExecutionResult
 Workflows should depend on this interface instead of concrete runner
 implementations.
 
+## External Command Preparation
+
+As of v1.0, Codex, Claude Code, and Hermes adapters inherit from
+`ExternalCommandExecutor`. They still implement the same `BaseExecutor`
+interface, but they use `ExecutorRunConfig` for dry-run, timeout, shell, and
+working directory controls.
+
+The default is safe dry-run behavior. v1.0 adapters only preview or execute
+`--version` commands and never pass task content to external agents.
+
 ## v0.3 Scope
 
 v0.3 only establishes the execution boundary:

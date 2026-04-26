@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0 - External Executor Adapter Preparation
+
+- Add ExecutorRunConfig
+- Add ExternalCommandExecutor for safe command execution
+- Upgrade Codex, Claude Code, and Hermes executors to external command adapters
+- Add dry-run and execute controls to repo analysis CLI
+- Document external executor safety model
+
 ## v0.9.1 - Repo Analysis Markdown Renderer
 
 - Add render_repo_analysis_markdown for human-readable Markdown reports

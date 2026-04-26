@@ -89,6 +89,15 @@ Fallback to the old mock executor:
 python3 runtime/workflows/run_repo_analysis.py https://github.com/emmadong521-beep/agent-os --executor mock
 ```
 
+Preview an external adapter without executing it:
+
+```bash
+python3 runtime/workflows/run_repo_analysis.py https://github.com/emmadong521-beep/agent-os --executor codex --dry-run --format json
+```
+
+External adapters are dry-run by default. Passing `--execute` is required before
+the CLI runs `codex --version`, `claude --version`, or `hermes --version`.
+
 The current `repo-analyzer` is deterministic and rule-based. It is not an LLM
 and does not inspect files beyond the RepoContext supplied by `GitHubRepoFetcher`.
 
@@ -113,9 +122,9 @@ scan local files, or call a real LLM. The analysis sections are rule-based and
 derived from fetched README, root file tree, key files, metadata, and workflow
 result.
 
-It also does not connect real Hermes, Claude Code, Codex, AutoResearch, or
-Paperclip. It proves the context integration shape without adding execution
-infrastructure.
+As of v1.0, the CLI can select Codex, Claude Code, or Hermes external command
+adapters, but they are dry-run by default and only prepare `--version` command
+execution. It still does not run real agent tasks, AutoResearch, or Paperclip.
 
 ## Future Extensions
 

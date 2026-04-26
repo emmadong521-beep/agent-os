@@ -16,6 +16,10 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from runtime.executors.claude_code_executor import ClaudeCodeExecutor
+from runtime.executors.codex_executor import CodexExecutor
+from runtime.executors.executor_config import ExecutorRunConfig
+from runtime.executors.hermes_executor import HermesExecutor
 from runtime.executors.mock_executor import MockExecutor
 from runtime.executors.repo_analyzer_executor import RepoAnalyzerExecutor
 from runtime.memory.init_db import init_db
@@ -62,8 +66,28 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--executor",
         default="repo-analyzer",
-        choices=("mock", "repo-analyzer"),
-        help="Executor to use: repo-analyzer or mock. Defaults to repo-analyzer.",
+        choices=("mock", "repo-analyzer", "codex", "claude-code", "hermes"),
+        help=(
+            "Executor to use: repo-analyzer, mock, codex, claude-code, "
+            "or hermes. Defaults to repo-analyzer."
+        ),
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=True,
+        help="Dry-run external executors. Enabled by default unless --execute is set.",
+    )
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Actually execute external executor command adapters.",
+    )
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=120,
+        help="Timeout in seconds for external executor commands.",
     )
     return parser.parse_args(argv)
 
@@ -80,6 +104,7 @@ def main(argv: list[str] | None = None) -> int:
         init_db()
         memory_service = MemoryService()
         executor = build_executor(args.executor)
+        context_metadata = build_context_metadata(args)
         standard_workflow = StandardTaskWorkflow(
             memory_service=memory_service,
             executor=executor,
@@ -93,6 +118,7 @@ def main(argv: list[str] | None = None) -> int:
             project_name=args.project_name or repo_name,
             analysis_goal=args.analysis_goal,
             repo_context=repo_context,
+            metadata=context_metadata,
         )
         result = workflow.run(input_data)
 
@@ -111,13 +137,31 @@ def main(argv: list[str] | None = None) -> int:
             memory_service.close()
 
 
-def build_executor(name: str) -> MockExecutor | RepoAnalyzerExecutor:
+def build_executor(
+    name: str,
+) -> MockExecutor | RepoAnalyzerExecutor | CodexExecutor | ClaudeCodeExecutor | HermesExecutor:
     if name == "mock":
         return MockExecutor()
     if name == "repo-analyzer":
         return RepoAnalyzerExecutor()
+    if name == "codex":
+        return CodexExecutor()
+    if name == "claude-code":
+        return ClaudeCodeExecutor()
+    if name == "hermes":
+        return HermesExecutor()
     print(f"ERROR: unknown executor '{name}'", file=sys.stderr)
     raise SystemExit(2)
+
+
+def build_context_metadata(args: argparse.Namespace) -> dict:
+    if args.executor not in ("codex", "claude-code", "hermes"):
+        return {}
+    config = ExecutorRunConfig(
+        dry_run=not args.execute,
+        timeout_seconds=args.timeout,
+    )
+    return {"executor_config": config}
 
 
 if __name__ == "__main__":

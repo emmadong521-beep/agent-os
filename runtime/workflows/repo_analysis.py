@@ -70,6 +70,7 @@ class RepoAnalysisWorkflow:
             metadata={
                 "workflow_name": self.workflow_name,
                 "repo_name": repo_name,
+                **input.metadata,
             },
         )
 
