@@ -23,6 +23,14 @@ export FINANCE_LLM_BASE_URL="https://ark.cn-beijing.volces.com/api/coding/v3"
 export FINANCE_LLM_MODEL="glm-5.1"
 ```
 
+For Volcengine standard inference, the base URL is usually:
+
+```bash
+export FINANCE_LLM_BASE_URL="https://ark.cn-beijing.volces.com/api/v3"
+```
+
+The Coding Plan endpoint may not be suitable for direct Chat Completions calls. If an SSL EOF error appears, first check whether `FINANCE_LLM_BASE_URL` points to the correct OpenAI-compatible inference endpoint.
+
 ## CLI Usage
 
 Generate a rule-based report:
@@ -92,6 +100,14 @@ If no API key is configured, the client raises:
 
 ```text
 未配置 FINANCE_LLM_API_KEY。请设置环境变量 FINANCE_LLM_API_KEY，或使用 --mode rule。
+```
+
+## Connection Diagnostics
+
+If the client detects an SSL EOF during connection, it raises a friendly diagnostic:
+
+```text
+LLM API 连接失败：检测到 SSL EOF。请检查 FINANCE_LLM_BASE_URL 是否正确。火山普通推理接口通常使用 https://ark.cn-beijing.volces.com/api/v3；Coding Plan 接口可能不适合直接 Chat Completions 调用。
 ```
 
 ## Security Boundary

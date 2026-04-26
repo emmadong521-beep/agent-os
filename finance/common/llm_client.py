@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import ssl
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -12,6 +13,11 @@ DEFAULT_BASE_URL = "https://ark.cn-beijing.volces.com/api/coding/v3"
 DEFAULT_MODEL = "glm-5.1"
 MISSING_API_KEY_MESSAGE = (
     "未配置 FINANCE_LLM_API_KEY。请设置环境变量 FINANCE_LLM_API_KEY，或使用 --mode rule。"
+)
+SSL_EOF_DIAGNOSTIC_MESSAGE = (
+    "LLM API 连接失败：检测到 SSL EOF。请检查 FINANCE_LLM_BASE_URL 是否正确。"
+    "火山普通推理接口通常使用 https://ark.cn-beijing.volces.com/api/v3；"
+    "Coding Plan 接口可能不适合直接 Chat Completions 调用。"
 )
 
 
@@ -77,7 +83,13 @@ def chat_completion(
     except urllib.error.HTTPError as error:
         raise RuntimeError(f"LLM API request failed with status {error.code}") from error
     except urllib.error.URLError as error:
+        if _is_ssl_eof_error(error.reason):
+            raise RuntimeError(SSL_EOF_DIAGNOSTIC_MESSAGE) from error
         raise RuntimeError(f"LLM API request failed: {error.reason}") from error
+    except ssl.SSLError as error:
+        if _is_ssl_eof_error(error):
+            raise RuntimeError(SSL_EOF_DIAGNOSTIC_MESSAGE) from error
+        raise RuntimeError(f"LLM API request failed: {error}") from error
 
     return json.loads(response_body)
 
@@ -95,3 +107,10 @@ def _chat_completions_url(base_url: str) -> str:
     if normalized.endswith("/chat/completions"):
         return normalized
     return f"{normalized}/chat/completions"
+
+
+def _is_ssl_eof_error(error: object) -> bool:
+    if isinstance(error, ssl.SSLEOFError):
+        return True
+    error_text = str(error).lower()
+    return "ssl" in error_text and "eof" in error_text

@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7.1 - LLM Connection Diagnostics
+
+- Add friendly SSL EOF diagnostic for LLM API connection failures
+- Mention FINANCE_LLM_BASE_URL checks for OpenAI-compatible endpoints
+- Document Volcengine standard inference base URL guidance
+
 ## v1.7 - LLM Financial Analyst Executor
 
 - Add provider-neutral LLM environment variable design
