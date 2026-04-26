@@ -23,6 +23,7 @@ from runtime.memory.memory_service import MemoryService
 from runtime.reflection.darwin_reflector import DarwinReflector
 from runtime.repo.github_fetcher import GitHubRepoFetcher
 from runtime.workflows.repo_analysis import RepoAnalysisInput, RepoAnalysisWorkflow
+from runtime.workflows.repo_report_renderer import render_repo_analysis_markdown
 from runtime.workflows.standard_task import StandardTaskWorkflow
 
 
@@ -96,8 +97,6 @@ def main(argv: list[str] | None = None) -> int:
         result = workflow.run(input_data)
 
         if args.output_format == "markdown":
-            from runtime.workflows.repo_report_renderer import render_repo_analysis_markdown
-
             print(render_repo_analysis_markdown(result))
         elif args.compact:
             print(json.dumps(asdict(result), separators=(",", ":"), default=str))
