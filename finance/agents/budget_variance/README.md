@@ -58,6 +58,22 @@ Run the UI from the repository root:
 streamlit run apps/budget_variance_ui.py
 ```
 
+## v1.6 Command-Line Interface
+
+v1.6 adds a standard CLI entrypoint that reads any budget actual CSV, runs the rule-based analyzer, and outputs either a Markdown report or JSON analysis result.
+
+Run the CLI from the repository root:
+
+```bash
+python3 finance/agents/budget_variance/run_budget_variance.py finance/examples/budget_actual_sample.csv --format markdown
+```
+
+Save a report to file:
+
+```bash
+python3 finance/agents/budget_variance/run_budget_variance.py finance/examples/budget_actual_sample.csv --format markdown --output workspace/budget_variance_report.md
+```
+
 ## Related Files
 
 - `scope.md`: MVP input, output, and non-goals
@@ -68,4 +84,5 @@ streamlit run apps/budget_variance_ui.py
 - `../../../common/csv_loader.py`: budget actual CSV loader
 - `analyzer.py`: rule-based budget variance analyzer
 - `report_renderer.py`: Chinese Markdown report renderer
+- `run_budget_variance.py`: CLI entrypoint
 - `../../../skills/budget_variance/SKILL.md`: Budget Variance Skill definition

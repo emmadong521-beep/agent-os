@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.6 - Budget Variance Agent CLI
+
+- Add command-line entrypoint for Budget Variance Agent
+- Support Markdown and JSON output formats
+- Support materiality threshold parameters
+- Support writing analysis output to file
+- Document CLI usage
+
 ## v1.5 - Budget Variance UI and Skill
 
 - Add Streamlit UI for Budget Variance Agent

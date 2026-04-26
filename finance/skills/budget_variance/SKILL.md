@@ -65,3 +65,7 @@ CSV 必须包含以下字段：
 ```bash
 streamlit run apps/budget_variance_ui.py
 ```
+
+```bash
+python3 finance/agents/budget_variance/run_budget_variance.py finance/examples/budget_actual_sample.csv --format markdown
+```

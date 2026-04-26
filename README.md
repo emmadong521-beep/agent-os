@@ -71,10 +71,20 @@ See [finance/agents/budget_variance](finance/agents/budget_variance) for the det
 Run the Budget Variance Agent local Streamlit UI:
 
 ```bash
-streamlit run apps/budget_variance_ui.py
+python -m streamlit run apps/budget_variance_ui.py
 ```
 
 The UI supports CSV upload, materiality threshold configuration, KPI cards, major variance tables, insight flags, rendered Chinese Markdown reports, and report download.
+
+## CLI
+
+Run the Budget Variance Agent from the command line:
+
+```bash
+python3 finance/agents/budget_variance/run_budget_variance.py finance/examples/budget_actual_sample.csv --format markdown
+```
+
+Use `--format json` for structured analysis output or `--output <path>` to save the result to a file.
 
 ## Project Structure
 
