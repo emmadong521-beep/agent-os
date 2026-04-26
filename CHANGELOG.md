@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4 - Darwin Memory Writeback
+
+- Add ReflectionResult and MemoryCandidate models
+- Add DarwinReflector for rule-based post-execution reflection
+- Add SQLite memory writeback from reflection candidates
+- Add end-to-end reflection demo
+- Add Darwin memory writeback documentation
+
 ## v0.3 - Executor Abstraction
 
 - Add BaseExecutor interface
