@@ -1,56 +1,84 @@
-# Agent OS
+# Agent Finance
 
-An evolving AI agent system built on top of OpenClaw, designed for execution, memory, reflection, and continuous improvement.
+Agent Finance is a Finance AI Agent System built around one shared Finance Agent Runtime and multiple specialized finance agents.
 
-## 🎯 Vision
+The project is formally repositioned from a generic Agent OS into a finance-domain agent platform. It is designed for financial analysis, budget execution, abnormal variance attribution, compliance review, accounts receivable risk analysis, reconciliation matching, and controlled finance knowledge Q&A.
 
-This project aims to build a modular Agent Operating System that can:
+## Vision
 
-- Execute complex tasks reliably
-- Persist and reuse knowledge
-- Learn from experience (self-improvement)
-- Evolve skills over time
-- Eventually scale into multi-agent orchestration (Paperclip integration)
+Agent Finance aims to support finance teams with AI agents that can:
 
-⸻
+- Analyze structured finance and business data
+- Track budget execution and explain budget variance
+- Attribute abnormal items to business drivers
+- Support compliance review and controlled finance knowledge Q&A
+- Identify accounts receivable risk and cash collection issues
+- Assist reconciliation matching workflows
+- Generate management-ready financial narratives
 
-## 🧠 Core Architecture
+## Architecture
 
-- **Agent OS Layer:** OpenClaw
-- **Execution Layer:** Hermes / Claude Code / Codex
-- **Skill Layer:**
-  - Harness (structured workflow)
-  - Darwin (self-improvement loop)
-- **Memory Layer:** SQLite-based long-term memory
-- **Workflow Layer:**
-  - Standard Task
-  - Repo Analysis
-  - (Future) AutoResearch Loop
+Architecture principle:
 
-⸻
+**One shared Finance Agent Runtime + multiple specialized finance agents.**
 
-## 🧩 Key Capabilities
+Layer responsibilities:
 
-- Structured task execution (Understand → Plan → Act → Verify → Reflect)
-- Persistent memory (patterns, failures, decisions)
-- Self-improving agent behavior
-- Pluggable execution engines
-- Extensible skill system
+- **Shared Agent Runtime:** execution adapters, workflows, memory services, reflection, and contracts
+- **Finance Domain Layer:** finance-specific agent scopes, report templates, examples, and shared domain conventions
+- **Specialized Finance Agents:** focused agents for budget variance, compliance review, AR risk, reconciliation, and controlled finance Q&A
+- **OpenClaw Compatibility Layer:** compatible entrypoint and skill layer for existing OpenClaw-style workflows; OpenClaw is not the current only runtime core
 
-⸻
+## Runtime Capabilities
 
-## 🗂 Project Structure
+The shared runtime already supports:
 
-```
-.openclaw/    # agent config, skills, prompts
+- SQLite memory
+- Executor abstraction
+- Workflow layer
+- Darwin reflection/writeback
+- GitHub repo fetcher
+- Repo analysis CLI
+- Markdown report renderer
+- External executor adapter preparation
+
+## Finance Agent Roadmap
+
+Planned finance agents:
+
+- **budget_variance:** Budget Variance & Business Insight Agent
+- **compliance_review:** compliance and policy review assistant
+- **ar_risk:** accounts receivable risk analysis agent
+- **reconciliation:** reconciliation support agent
+- **controlled_qa:** controlled finance knowledge Q&A agent
+
+## First Agent: Budget Variance & Business Insight Agent
+
+The first finance agent focuses on budget execution analysis and management insight generation.
+
+MVP scope:
+
+- Compare budget vs actual data
+- Attribute major variances to business drivers
+- Detect abnormal budget execution items
+- Generate Chinese management reports
+- Prepare for future memory writeback of recurring patterns, risks, and management actions
+
+See [finance/agents/budget_variance](finance/agents/budget_variance) for the detailed scope, template, and sample output.
+
+## Project Structure
+
+```text
+.openclaw/    # compatible entrypoint and skill layer
 memory/       # SQLite memory + exports
-runtime/      # executors, workflows, memory services
-contracts/    # task/result schemas
+runtime/      # shared executors, workflows, memory services, reflection
+contracts/    # task/result/workflow/repo schemas
+finance/      # finance domain layer and specialized finance agents
 docs/         # architecture and decisions
 workspace/    # working directory
 ```
 
-## 🚀 Roadmap
+## Roadmap
 
 - **v0.1:** OpenClaw + Harness + Darwin
 - **v0.2:** SQLite memory backbone
@@ -59,17 +87,9 @@ workspace/    # working directory
 - **v0.5:** Workflow system
 - **v0.6:** AutoResearch integration
 - **v0.7:** Paperclip integration
+- **v1.0:** External executor adapter preparation
+- **v1.1:** Finance MVP repositioning and Budget Variance Agent scope
 
-⸻
+## Status
 
-## 🔮 Future Direction
-
-This system is designed to evolve into:
-
-**A fully autonomous, self-improving, multi-agent system.**
-
-⸻
-
-## 📌 Status
-
-Early-stage experimental system. Rapid iteration expected.
+Early-stage Finance AI Agent System. Rapid iteration expected.

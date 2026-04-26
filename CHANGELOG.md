@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1 - Finance MVP Repositioning
+
+- Reposition project from generic Agent OS to Finance AI Agent System
+- Add finance domain layer
+- Add Budget Variance & Business Insight Agent scope
+- Add budget variance report template
+- Add sample budget vs actual data
+
 ## v1.0.1 - Chinese Repo Analysis Report
 
 - Render repo analysis Markdown reports in Chinese
