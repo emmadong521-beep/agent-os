@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.5 - Budget Variance UI and Skill
+
+- Add Streamlit UI for Budget Variance Agent
+- Add KPI cards, major variance table, insight flags, and Markdown report display
+- Add downloadable budget variance report
+- Add Budget Variance Skill definition
+- Document local UI usage
+
 ## v1.4 - Budget Variance Report Renderer
 
 - Add Chinese Markdown renderer for budget variance analysis

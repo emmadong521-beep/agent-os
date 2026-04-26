@@ -48,6 +48,16 @@ Run the report demo from the repository root:
 python3 finance/agents/budget_variance/demo_render_budget_report.py
 ```
 
+## v1.5 Local Web UI and Skill
+
+v1.5 adds a Streamlit UI for CSV upload, threshold configuration, KPI cards, major variance tables, insight flags, Markdown report display, and report download. It also adds a Budget Variance Skill definition under `finance/skills/budget_variance`.
+
+Run the UI from the repository root:
+
+```bash
+streamlit run apps/budget_variance_ui.py
+```
+
 ## Related Files
 
 - `scope.md`: MVP input, output, and non-goals
@@ -58,3 +68,4 @@ python3 finance/agents/budget_variance/demo_render_budget_report.py
 - `../../../common/csv_loader.py`: budget actual CSV loader
 - `analyzer.py`: rule-based budget variance analyzer
 - `report_renderer.py`: Chinese Markdown report renderer
+- `../../../skills/budget_variance/SKILL.md`: Budget Variance Skill definition

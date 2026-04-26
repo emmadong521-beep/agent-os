@@ -66,10 +66,21 @@ MVP scope:
 
 See [finance/agents/budget_variance](finance/agents/budget_variance) for the detailed scope, template, and sample output.
 
+## Local UI
+
+Run the Budget Variance Agent local Streamlit UI:
+
+```bash
+streamlit run apps/budget_variance_ui.py
+```
+
+The UI supports CSV upload, materiality threshold configuration, KPI cards, major variance tables, insight flags, rendered Chinese Markdown reports, and report download.
+
 ## Project Structure
 
 ```text
 .openclaw/    # compatible entrypoint and skill layer
+apps/         # local app entrypoints
 memory/       # SQLite memory + exports
 runtime/      # shared executors, workflows, memory services, reflection
 contracts/    # task/result/workflow/repo schemas
@@ -89,6 +100,7 @@ workspace/    # working directory
 - **v0.7:** Paperclip integration
 - **v1.0:** External executor adapter preparation
 - **v1.1:** Finance MVP repositioning and Budget Variance Agent scope
+- **v1.5:** Budget Variance UI and skill definition
 
 ## Status
 
